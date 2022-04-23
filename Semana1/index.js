@@ -4,7 +4,8 @@ const app = express();
 
 const users = [];
 
-app.use(express.json);
+//Middleware para enviar archivos json
+app.use(express.json());
 
 // Metodo get para obtener la ruta principal
 app.get("/", (req, res) => {
