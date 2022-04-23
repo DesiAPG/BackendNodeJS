@@ -4,6 +4,8 @@ const app = express();
 
 const users = [];
 
+app.use(express.json);
+
 // Metodo get para obtener la ruta principal
 app.get("/", (req, res) => {
   res.json(users);
@@ -12,22 +14,22 @@ app.get("/", (req, res) => {
 
 app.post("/", (req, res) => {
   const user = req.body;
-  users.push(users);
+  users.push(user);
   return res.json(users);
 });
 
 app.put("/", (req, res) => {
-  users.map((users) => {
-      if(id === user.id){
-          
-      }
-  });
-  return res.json(users);
+  const {
+    body,
+    params: { id },
+  } = req;
+  users = users.map((user) => (user.id === id ? body : user));
+  return res.status(201).json(users);
 });
 
 app.delete("/:id", (req, res) => {
   const users = users.filter((user) => id !== user.id);
-  return res.json(users);
+  return res.status(201).json(users);
 });
 
 // Escuchar en el puerto 4000
