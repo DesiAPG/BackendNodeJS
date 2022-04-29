@@ -1,8 +1,11 @@
 const express = require("express");
+const users = require("./routes/users");
 const { connection } = require("./config/db");
 const app = express();
 
 connection();
+
+users(app);
 
 app.get("/", (req, res) => {
   console.log("hello world");
