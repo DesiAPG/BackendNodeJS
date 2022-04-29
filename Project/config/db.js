@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
+const { dbUsername, dbPassword, dbHost, dbName } = require(".");
 
-
-const connection = async () => {
+const connection = async function () {
   const conn = await mongoose.connect(
-    `mongodb+srv://${dbusername}:${dbPassword}@c${dbHost}/${dbName}?retryWrites=true&w=majority`
+    `mongodb+srv://${dbUsername}:${dbPassword}@${dbHost}/${dbName}?retryWrites=true&w=majority`
   );
-  console.log(first);
+  console.log("Mongo DB connected:", conn.connection.host);
 };
 
 module.exports = { connection, mongoose };

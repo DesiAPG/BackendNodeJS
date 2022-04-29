@@ -1,26 +1,30 @@
 const express = require("express");
 
-const users = (app) => {
+function users(app) {
   const router = express.Router();
-  app.use(router);
 
-  router.get("/users", (req, res) => {
+  app.use("/api/users", router);
+
+  router.get("/", (req, res) => {
     return res.json({
-      saludo: "Hola mundo",
+      hola: "mundo",
     });
   });
-
-  router.get("/users", (req, res) => {
+  router.post("/", (req, res) => {
     return res.json({
-      saludo: "Hola mundo",
+      hola: "mundo",
     });
   });
-
-  router.get("/users", (req, res) => {
+  router.put("/", (req, res) => {
     return res.json({
-      saludo: "Hola mundo",
+      hola: "mundo",
     });
   });
-};
+  router.delete("/", (req, res) => {
+    return res.json({
+      hola: "mundo",
+    });
+  });
+}
 
 module.exports = users;

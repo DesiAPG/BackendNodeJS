@@ -1,16 +1,17 @@
 const express = require("express");
-const users = require("./routes/users");
+const { port } = require("./config");
 const { connection } = require("./config/db");
-const app = express();
+
+//Importando routes
+const users = require("./routes/users");
 
 connection();
 
+const app = express();
+
+//Usando routes
 users(app);
 
-app.get("/", (req, res) => {
-  console.log("hello world");
-});
-
-app.listen(4000, () => {
-  console.log("Listening on port 4000");
+app.listen(port, () => {
+  console.log("Listening: http://localhost:" + port);
 });
