@@ -1,10 +1,7 @@
 const express = require("express");
+const router = express.Router();
 
-function users(app) {
-  const router = express.Router();
-
-  app.use("/api/users", router);
-
+const users = (router) => {
   router.get("/", (req, res) => {
     return res.json({
       hola: "mundo",
@@ -25,6 +22,6 @@ function users(app) {
       hola: "mundo",
     });
   });
-}
+};
 
 module.exports = users;
