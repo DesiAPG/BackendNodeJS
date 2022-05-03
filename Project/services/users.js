@@ -1,5 +1,13 @@
+const userModel = require("../models/user");
+
 class Users {
-  getAll() {}
+  async getAll() {
+    try {
+      const users = await userModel.find();
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   create(data) {}
 }
