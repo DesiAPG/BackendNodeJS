@@ -8,6 +8,7 @@ const users = require("./routes/users");
 connection();
 
 const app = express();
+app.use(express.json());
 
 //Usando routes
 users(app);
