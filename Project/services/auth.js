@@ -1,7 +1,8 @@
 const jwt = require("jsonwebtoken");
+const { jwtSecret } = require("../config");
 class Auth {
   login(data) {
-    const token = jwt.sign(data, "1000239");
+    const token = jwt.sign(data, jwtSecret);
     return token;
   }
 }

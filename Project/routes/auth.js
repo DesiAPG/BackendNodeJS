@@ -1,7 +1,16 @@
 const express = require("express");
+const AuthService = require("../services/auth");
 
-const auth = (app) => {
+function auth(app) {
   const router = express.Router();
-  app.use('auth',router)
-  
-};
+  const authServ = new AuthService();
+  app.use("/api/auth", router);
+
+  router.post("/login", (req, res) => {
+    const token = authServ.login(req.body);
+
+    return res.json(token);
+  });
+}
+
+module.exports = auth;
