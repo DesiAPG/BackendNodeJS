@@ -4,6 +4,7 @@ const { connection } = require("./config/db");
 
 //Importando routes
 const users = require("./routes/users");
+const auth = require("./routes/auth");
 
 connection();
 
@@ -12,6 +13,7 @@ app.use(express.json());
 
 //Usando routes
 users(app);
+auth(app);
 
 app.listen(port, () => {
   console.log("Listening: http://localhost:" + port);
