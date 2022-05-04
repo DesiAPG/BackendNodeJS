@@ -16,11 +16,13 @@ const users = (router) => {
   });
 
   router.put("/:id", async (req, res) => {
-    const user = await userServe.update(req.params.id);
+    const user = await userServe.update(req.params.id, req.body);
+    return res.json(user);
   });
 
   router.delete("/:id", async (req, res) => {
     const user = await userServe.delete(req.params.id);
+    return res.json(user);
   });
 };
 
