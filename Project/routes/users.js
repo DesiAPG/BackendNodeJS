@@ -10,21 +10,17 @@ const users = (router) => {
     return res.json(users);
   });
 
-  router.post("/", async (req, res) => {
+  router.post("/:id", async (req, res) => {
     const user = await userServe.create(req.body);
     return res.json(user);
   });
 
-  router.put("/", (req, res) => {
-    return res.json({
-      hola: "mundo",
-    });
+  router.put("/:id", async (req, res) => {
+    const user = await userServe.update(req.params.id);
   });
 
-  router.delete("/", (req, res) => {
-    return res.json({
-      hola: "mundo",
-    });
+  router.delete("/:id", async (req, res) => {
+    const user = await userServe.delete(req.params.id);
   });
 };
 

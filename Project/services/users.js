@@ -18,9 +18,17 @@ class Users {
       console.log(error);
     }
   }
-  async delete(data) {
+  async delete(id) {
     try {
-      const user = await userModel.deleteOne(data);
+      const user = await userModel.findByIdAndDelete(id);
+      return user;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async update(id, data) {
+    try {
+      const user = await userModel.findByIdAndUpdate(id, data);
       return user;
     } catch (error) {
       console.log(error);
