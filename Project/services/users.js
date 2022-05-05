@@ -15,7 +15,10 @@ class Users {
       const user = await userModel.create(data);
       return user;
     } catch (error) {
-      console.log(error);
+      if (error.code === 11000) {
+        const message = "Al menos uno de los campos ingresados ya existe";
+        console.log(message);
+      }
     }
   }
   async delete(id) {
