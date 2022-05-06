@@ -11,14 +11,14 @@ class Auth {
     if (data.password) {
       data.password = await this.#encrypt(data.password);
     }
-    userServ = new User();
+    const userServ = new User();
     const user = await userServ.create(data);
     const userData = {
       name: user.name,
       email: user.email,
       id: user.id,
     };
-    const token = this.#createToken(userDdata);
+    const token = this.#createToken(userData);
     return {
       user: userData,
       token,
@@ -26,7 +26,9 @@ class Auth {
   }
 
   #createToken(payLoad) {
-    const token = jwt.sign(payLoad, jwtSecret);
+    const token = jwt.sign(payLoad, jwtSecret, {
+      expiresIn: "7d",
+    });
     return token;
   }
 
