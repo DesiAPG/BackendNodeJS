@@ -4,8 +4,16 @@ const User = require("./users");
 const bcrypt = require("bcrypt");
 
 class Auth {
-  login(data) {
-    return this.#createToken(data);
+  async login(data) {
+    const email = data.email;
+    const userServ = new User();
+    const user = await userServ.getByEmail(email);
+    console.log(user);
+    if (user) {
+      {
+        return this.#createToken(data);
+      }
+    }
   }
   async signup(data) {
     if (data.password) {

@@ -9,6 +9,14 @@ class Users {
       console.log(error);
     }
   }
+  async getByEmail() {
+    try {
+      const user = await userModel.findOne({email});
+      return user;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   async create(data) {
     try {

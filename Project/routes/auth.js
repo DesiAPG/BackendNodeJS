@@ -6,8 +6,8 @@ function auth(app) {
   const authServ = new AuthService();
   app.use("/api/auth", router);
 
-  router.post("/login", (req, res) => {
-    const token = authServ.login(req.body);
+  router.post("/login", async (req, res) => {
+    const token = await authServ.login(req.body);
 
     return res.json(token);
   });
