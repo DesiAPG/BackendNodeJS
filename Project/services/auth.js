@@ -5,15 +5,19 @@ const bcrypt = require("bcrypt");
 
 class Auth {
   async login(data) {
-    const email = data.email;
+    const { email, password } = data;
     const userServ = new User();
     const user = await userServ.getByEmail(email);
     console.log(user);
-    if (user) {
+    if (user && (await this.#compare(password, user.password))) {
       {
-        return this.#createToken(data);
+        return this.#getUserData(data);
       }
     }
+    return {
+      error: true,
+      mesagge: "Las credenciales son incorrectas",
+    };
   }
   async signup(data) {
     if (data.password) {
@@ -21,6 +25,16 @@ class Auth {
     }
     const userServ = new User();
     const user = await userServ.create(data);
+  }
+
+  #createToken(payLoad) {
+    const token = jwt.sign(payLoad, jwtSecret, {
+      expiresIn: "7d",
+    });
+    return token;
+  }
+
+  #getUserData(user) {
     const userData = {
       name: user.name,
       email: user.email,
@@ -33,13 +47,6 @@ class Auth {
     };
   }
 
-  #createToken(payLoad) {
-    const token = jwt.sign(payLoad, jwtSecret, {
-      expiresIn: "7d",
-    });
-    return token;
-  }
-
   async #encrypt(string) {
     try {
       const salt = await bcrypt.genSalt();
@@ -48,6 +55,10 @@ class Auth {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  async #compare(hash, string) {
+    return await bcrypt.compare(string, hash);
   }
 }
 module.exports = Auth;
