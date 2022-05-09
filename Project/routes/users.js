@@ -1,27 +1,30 @@
 const express = require("express");
 const UserService = require("../services/users");
-const router = express.Router();
+const UserService = new UserService();
 
-const userServe = new UserService();
+const users = (app) => {
+  const router = express.Router();
+  const userServ = new UserService();
 
-const users = (router) => {
-  router.get("/", async (req, res) => {
-    const users = await userServe.getAll();
+  app.use("/api/users", router);
+
+  router.get("/", authValidation, async (req, res) => {
+    const users = await userServ.getAll();
     return res.json(users);
   });
 
   router.post("/:id", async (req, res) => {
-    const user = await userServe.create(req.body);
+    const user = await userServ.create(req.body);
     return res.json(user);
   });
 
   router.put("/:id", async (req, res) => {
-    const user = await userServe.update(req.params.id, req.body);
+    const user = await userServ.update(req.params.id, req.body);
     return res.json(user);
   });
 
   router.delete("/:id", async (req, res) => {
-    const user = await userServe.delete(req.params.id);
+    const user = await userServ.delete(req.params.id);
     return res.json(user);
   });
 };

@@ -8,7 +8,6 @@ class Auth {
     const { email, password } = data;
     const userServ = new User();
     const user = await userServ.getByEmail(email);
-    console.log(user);
     if (user && (await this.#compare(password, user.password))) {
       {
         return this.#getUserData(data);
@@ -25,6 +24,10 @@ class Auth {
     }
     const userServ = new User();
     const user = await userServ.create(data);
+    if (user.error) {
+      return user;
+    }
+    return this.#getUserData(user);
   }
 
   #createToken(payLoad) {
@@ -38,6 +41,7 @@ class Auth {
     const userData = {
       name: user.name,
       email: user.email,
+      role: user.role,
       id: user.id,
     };
     const token = this.#createToken(userData);

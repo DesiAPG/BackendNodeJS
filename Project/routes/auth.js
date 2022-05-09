@@ -7,14 +7,13 @@ function auth(app) {
   app.use("/api/auth", router);
 
   router.post("/login", async (req, res) => {
-    const token = await authServ.login(req.body);
-
-    return res.json(token);
+    const result = await authServ.login(req.body);
+    return res.json(result);
   });
   router.post("/signup", async (req, res) => {
     const result = await authServ.signup(req.body);
 
-    return res.json(result);
+    return res.status(result.error ? 400 : 200).json(result);
   });
 }
 

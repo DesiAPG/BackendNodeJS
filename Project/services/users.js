@@ -11,7 +11,7 @@ class Users {
   }
   async getByEmail() {
     try {
-      const user = await userModel.findOne({email});
+      const user = await userModel.findOne({ email });
       return user;
     } catch (error) {
       console.log(error);
@@ -39,7 +39,7 @@ class Users {
   }
   async update(id, data) {
     try {
-      const user = await userModel.findByIdAndUpdate(id, data);
+      const user = await userModel.findByIdAndUpdate(id, data, { new: true });
       return user;
     } catch (error) {
       console.log(error);
