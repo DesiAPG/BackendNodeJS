@@ -32,7 +32,7 @@ class Auth {
 
   #createToken(payLoad) {
     const token = jwt.sign(payLoad, jwtSecret, {
-      expiresIn: "7d",
+      expiresIn: 300000,
     });
     return token;
   }

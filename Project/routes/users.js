@@ -1,6 +1,6 @@
 const express = require("express");
 const UserService = require("../services/users");
-const UserService = new UserService();
+const authValidation = require("../middleware/authValidation");
 
 const users = (app) => {
   const router = express.Router();
