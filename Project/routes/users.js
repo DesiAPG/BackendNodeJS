@@ -8,12 +8,12 @@ const users = (app) => {
 
   app.use("/api/users", router);
 
-  router.get("/", authValidation, async (req, res) => {
+  router.get("/", ...authValidation(), async (req, res) => {
     const users = await userServ.getAll();
     return res.json(users);
   });
 
-  router.post("/:id", async (req, res) => {
+  router.post("/", async (req, res) => {
     const user = await userServ.create(req.body);
     return res.json(user);
   });
