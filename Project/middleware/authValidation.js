@@ -34,11 +34,46 @@ function authValidation(req, res, next) {
 function adminValidation(req, res, next) {
   if (req.user.role === "admin") {
     return next();
+  } else {
+    return res.status(403).json({
+      error: true,
+      message: "Permisos insuficientes",
+    });
+  }
+}
+function applicantValidation(req, res, next) {
+  if (req.user.role === "applicant") {
+    return next();
+  } else {
+    return res.status(403).json({
+      error: true,
+      message: "Permisos insuficientes",
+    });
+  }
+}
+function employerValidation(req, res, next) {
+  if (req.user.role === "employer") {
+    return next();
+  } else {
+    return res.status(403).json({
+      error: true,
+      message: "Permisos insuficientes",
+    });
   }
 }
 
-function authMiddleware() {
-  return [authValidation, adminValidation];
+function authMiddleware(type) {
+  let middlewares;
+  if (type == "admin") {
+    middlewares = [authValidation, adminValidation];
+  } else if (type == "applicant") {
+    middlewares = [authValidation, applicantValidation];
+  } else if (type == "employer") {
+    middlewares = [authValidation, employerValidation];
+  } else {
+    middlewares = [];
+  }
+  return middlewares;
 }
 
 module.exports = authMiddleware;

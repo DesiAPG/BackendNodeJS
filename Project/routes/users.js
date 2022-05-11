@@ -8,7 +8,7 @@ const users = (app) => {
 
   app.use("/api/users", router);
 
-  router.get("/", ...authValidation(), async (req, res) => {
+  router.get("/", ...authValidation("admin"), async (req, res) => {
     const users = await userServ.getAll();
     return res.json(users);
   });

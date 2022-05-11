@@ -11,7 +11,7 @@ const userSchema = new Schema({
   password: String,
   role: {
     type: String,
-    enum: ["postulante", "empleador", "admin"],
+    enum: ["applicant", "employer", "admin"],
   },
 });
 
